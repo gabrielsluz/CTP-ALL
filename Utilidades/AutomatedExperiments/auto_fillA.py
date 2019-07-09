@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
+#System arguments: number_of_nodes e number_of_timeslots
 
 submission_dir = 'images'
 
@@ -32,29 +33,14 @@ id_box = driver.find_element_by_name('username')
 pass_box = driver.find_element_by_name('password')
 login_button = driver.find_element_by_class_name('button')
 
-id_box.send_keys('user')
-pass_box.send_keys('pasword')
+id_box.send_keys('nildo')
+pass_box.send_keys('meneze')
 login_button.click()
 
 #Grande Loop de envio
 
 for index in range(len(file_tup)):
-    '''
-    name = file_tup[index][1].split(".")
-    number = file_tup[index][0].split("-")
-    number2 = number[1].split("N")
-    num_hops = number2[0]
-    image_name = num_hops +'-'+name[0]
-    number = file_tup[index][1].split("-")
-    number2 = number[0].split("t")
-    if number2[2][0] == "N":
-        number3 = number2[2].split("N")
-        num_nodes = int(float(number3[1]))
-    else:
-        num_nodes = int(float(number2[2]))
-
-    #print(num_nodes)
-    '''
+    
     name = file_tup[index][1].split(".")
     image_name = name[0]
     number = sys.argv[1]
@@ -116,36 +102,21 @@ for index in range(len(file_tup)):
     submitcfg_button.click()
 
     #Send Task
-    driver.get('http://twonet.cs.uh.edu/webentry/task_page.php')
+    for i in range(1):
 
-    task_button = driver.find_element_by_name('new_task')
-    task_button.click()
+        driver.get('http://twonet.cs.uh.edu/webentry/task_page.php')
 
-    task_box = driver.find_element_by_id('task_name')
-    task_box.send_keys(image_name)
+        task_button = driver.find_element_by_name('new_task')
+        task_button.click()
 
-
-    time_slot = driver.find_element_by_css_selector('li.ui-widget-content.ui-selectee')
-
-    ActionChains(driver).drag_and_drop_by_offset(time_slot,0,24*(int(sys.argv[2])-1)).perform()
-
-    #Send Task again
-    submit_button = driver.find_element_by_xpath("//form[@id='mainform']/table[1]//tr[3]/td[3]/input[1]")
-    submit_button.click()
-
-    driver.get('http://twonet.cs.uh.edu/webentry/task_page.php')
-
-    task_button = driver.find_element_by_name('new_task')
-    task_button.click()
-
-    task_box = driver.find_element_by_id('task_name')
-    task_box.send_keys(image_name)
+        task_box = driver.find_element_by_id('task_name')
+        task_box.send_keys(image_name)
 
 
-    time_slot = driver.find_element_by_css_selector('li.ui-widget-content.ui-selectee')
+        time_slot = driver.find_element_by_css_selector('li.ui-widget-content.ui-selectee')
 
-    ActionChains(driver).drag_and_drop_by_offset(time_slot,0,24*(int(sys.argv[2])-1)).perform()
+        ActionChains(driver).drag_and_drop_by_offset(time_slot,0,24*(int(sys.argv[2])-1)).perform()
 
 
-    submit_button = driver.find_element_by_xpath("//form[@id='mainform']/table[1]//tr[3]/td[3]/input[1]")
-    submit_button.click()
+        submit_button = driver.find_element_by_xpath("//form[@id='mainform']/table[1]//tr[3]/td[3]/input[1]")
+        submit_button.click()
